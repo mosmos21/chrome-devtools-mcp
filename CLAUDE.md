@@ -8,7 +8,7 @@ Chrome DevTools MCP は、MCP (Model-Context-Protocol) サーバーとして動�
 
 ## 開発環境
 
-- Node.js: v22 (.nvmrc で指定)
+- Node.js: v24 (.nvmrc で指定)
 - TypeScript: strict mode で記述
 - エディタ設定: POSIX 準拠で改行文字必須
 
