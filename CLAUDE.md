@@ -15,6 +15,7 @@ Chrome DevTools MCP は、MCP (Model-Context-Protocol) サーバーとして動�
 ## コマンド
 
 ### ビルド
+
 ```bash
 npm run build        # TypeScript をコンパイルし、post-build スクリプトを実行
 npm run bundle       # clean、build の後に rollup でバンドル
@@ -22,17 +23,20 @@ npm run clean        # build ディレクトリを削除
 ```
 
 ### 型チェック
+
 ```bash
 npm run typecheck    # tsc --noEmit で型チェックのみ実行
 ```
 
 ### フォーマット・Lint
+
 ```bash
 npm run format       # ESLint と Prettier で自動修正
 npm run check-format # フォーマットチェックのみ（CI 用）
 ```
 
 ### テスト
+
 ```bash
 npm test                    # 全テスト実行
 npm run test:only           # test.only でマークされたテストのみ実行
@@ -43,6 +47,7 @@ npm run test:update-snapshots  # スナップショットを更新
 テストは Node.js の組み込みテストランナーを使用しています。
 
 ### ドキュメント生成
+
 ```bash
 npm run docs  # ツールリファレンスドキュメントを生成し、フォーマット
 ```
@@ -50,17 +55,20 @@ npm run docs  # ツールリファレンスドキュメントを生成し、フ�
 ツールの追加や変更時は必ず実行すること。
 
 ### デバッグ実行
+
 ```bash
 npm start              # ビルド後に MCP サーバーを起動
 npm run start-debug    # DEBUG=mcp:* で詳細ログ付き起動
 ```
 
 ### MCP Inspector でのテスト
+
 ```bash
 npx @modelcontextprotocol/inspector node build/src/index.js
 ```
 
 ログファイルへの出力:
+
 ```bash
 npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/log.txt
 ```
@@ -68,18 +76,22 @@ npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/
 ## アーキテクチャ
 
 ### エントリーポイント
+
 - [src/index.ts](src/index.ts): パッケージのバージョン情報のみをエクスポート
 - [src/main.ts](src/main.ts): MCP サーバーの本体、ツール登録とリクエストハンドラ
 - [src/cli.ts](src/cli.ts): コマンドライン引数のパース
 
 ### コアコンポーネント
+
 - [src/McpContext.ts](src/McpContext.ts): 各 MCP リクエストのコンテキスト管理（ページ、タイムアウト、設定など）
 - [src/browser.ts](src/browser.ts): Puppeteer を使った Chrome の起動と接続管理
 - [src/PageCollector.ts](src/PageCollector.ts): ブラウザ内の全ページを追跡
 - [src/DevToolsConnectionAdapter.ts](src/DevToolsConnectionAdapter.ts): Chrome DevTools Frontend との接続アダプター
 
 ### ツール実装
+
 [src/tools/](src/tools/) 配下にカテゴリごとに分類:
+
 - [input.ts](src/tools/input.ts): クリック、フォーム入力、ドラッグなど
 - [pages.ts](src/tools/pages.ts): ページナビゲーション、新規作成、選択など
 - [snapshot.ts](src/tools/snapshot.ts): アクセシビリティツリーベースのテキストスナップショット
@@ -92,12 +104,15 @@ npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/
 - [ToolDefinition.ts](src/tools/ToolDefinition.ts): ツール定義の共通型と `defineTool` ヘルパー
 
 ### フォーマッター
+
 [src/formatters/](src/formatters/) 配下に MCP クライアント向けのデータ整形ロジック:
+
 - [snapshotFormatter.ts](src/formatters/snapshotFormatter.ts): アクセシビリティツリーのフォーマット
 - [networkFormatter.ts](src/formatters/networkFormatter.ts): ネットワークリクエストのフォーマット
 - [consoleFormatter.ts](src/formatters/consoleFormatter.ts): コンソールメッセージのフォーマット
 
 ### Chrome DevTools Frontend 統合
+
 - [src/trace-processing/parse.ts](src/trace-processing/parse.ts): Chrome DevTools の Trace モジュールを使用してパフォーマンストレースを解析
 - Chrome DevTools Frontend のコードは `node_modules/chrome-devtools-frontend/mcp/mcp.js` 経由でのみインポート可能（他のパスからのインポートは ESLint で禁止）
 
@@ -112,6 +127,7 @@ npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/
 ## コーディング規約
 
 ### TypeScript
+
 - 未使用変数は `_` プレフィックスで無視可能
 - `any` 型は rest 引数でのみ許可
 - 配列型は `array-simple` スタイル
@@ -119,12 +135,14 @@ npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/
 - 型定義は基本的に interface を使用
 
 ### Import
+
 - 常に node: プロトコルを使用（`import/enforce-node-protocol-usage`）
 - import は自動的にアルファベット順でソート、カテゴリ間に空行を入れる
 - 循環依存は禁止
 - Chrome DevTools Frontend のコードは `node_modules/chrome-devtools-frontend/mcp/mcp.js` からのみインポート
 
 ### フォーマット
+
 - シングルクォート使用
 - セミコロン必須
 - トレイリングカンマあり
@@ -133,7 +151,9 @@ npx @modelcontextprotocol/inspector node build/src/index.js --log-file=/path/to/
 - 改行コードは LF
 
 ### ライセンスヘッダー
+
 全ての TypeScript/JavaScript ファイルには Apache 2.0 ライセンスヘッダーが必要:
+
 ```typescript
 /**
  * @license
