@@ -2,14 +2,19 @@
 
 # Chrome DevTools MCP Tool Reference
 
-- **[Input automation](#input-automation)** (8 tools)
+- **[Input automation](#input-automation)** (13 tools)
   - [`click`](#click)
   - [`drag`](#drag)
   - [`fill`](#fill)
   - [`fill_form`](#fill_form)
+  - [`fill_form_with_vault`](#fill_form_with_vault)
+  - [`fill_with_vault`](#fill_with_vault)
+  - [`handle_basic_auth_with_vault`](#handle_basic_auth_with_vault)
   - [`handle_dialog`](#handle_dialog)
   - [`hover`](#hover)
+  - [`issue_vault_token`](#issue_vault_token)
   - [`press_key`](#press_key)
+  - [`revoke_vault_token`](#revoke_vault_token)
   - [`upload_file`](#upload_file)
 - **[Navigation automation](#navigation-automation)** (6 tools)
   - [`close_page`](#close_page)
@@ -80,6 +85,41 @@
 
 ---
 
+### `fill_form_with_vault`
+
+**Description:** [`Fill`](#fill) multiple form fields with secret values from VaultKey
+
+**Parameters:**
+
+- **elements** (array) **(required)**: Elements to [`fill`](#fill) with secret values
+
+---
+
+### `fill_with_vault`
+
+**Description:** [`Fill`](#fill) a form field with a secret value from VaultKey using token and valueKey
+
+**Parameters:**
+
+- **token** (string) **(required)**: The token obtained from [`issue_vault_token`](#issue_vault_token)
+- **uid** (string) **(required)**: The uid of an element on the page from the page content snapshot
+- **valueKey** (string) **(required)**: The key of the secret value stored in VaultKey
+
+---
+
+### `handle_basic_auth_with_vault`
+
+**Description:** Handle HTTP Basic authentication with credentials from VaultKey
+
+**Parameters:**
+
+- **passwordToken** (string) **(required)**: Token for accessing the password
+- **passwordValueKey** (string) **(required)**: VaultKey key for the password
+- **usernameToken** (string) **(required)**: Token for accessing the username
+- **usernameValueKey** (string) **(required)**: VaultKey key for the username
+
+---
+
 ### `handle_dialog`
 
 **Description:** If a browser dialog was opened, use this command to handle it
@@ -101,6 +141,17 @@
 
 ---
 
+### `issue_vault_token`
+
+**Description:** Issue a new token from VaultKey for accessing secret values
+
+**Parameters:**
+
+- **expiresIn** (number) _(optional)_: Token expiration time in seconds (optional, default: 300)
+- **userId** (string) **(required)**: The user ID to issue the token for
+
+---
+
 ### `press_key`
 
 **Description:** Press a key or key combination. Use this when other input methods like [`fill`](#fill)() cannot be used (e.g., keyboard shortcuts, navigation keys, or special key combinations).
@@ -108,6 +159,16 @@
 **Parameters:**
 
 - **key** (string) **(required)**: A key or a combination (e.g., "Enter", "Control+A", "Control++", "Control+Shift+R"). Modifiers: Control, Shift, Alt, Meta
+
+---
+
+### `revoke_vault_token`
+
+**Description:** Revoke a VaultKey token to prevent further access
+
+**Parameters:**
+
+- **token** (string) **(required)**: The token to revoke
 
 ---
 

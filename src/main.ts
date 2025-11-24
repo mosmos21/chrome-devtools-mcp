@@ -32,6 +32,7 @@ import * as screenshotTools from './tools/screenshot.js';
 import * as scriptTools from './tools/script.js';
 import * as snapshotTools from './tools/snapshot.js';
 import type {ToolDefinition} from './tools/ToolDefinition.js';
+import * as vaultTools from './tools/vault.js';
 
 // If moved update release-please config
 // x-release-please-start-version
@@ -181,6 +182,7 @@ const tools = [
   ...Object.values(screenshotTools),
   ...Object.values(scriptTools),
   ...Object.values(snapshotTools),
+  ...Object.values(vaultTools),
 ] as ToolDefinition[];
 
 tools.sort((a, b) => {
